@@ -10,18 +10,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // todo -> docs
-
-        /**
-         * d
-         */
-
+        System.out.println("--Testing Array class--");
         //ArrayTest();
-        //HashMapTest();
 
-        //String path = "/Users/mikolaj/Desktop/DS/p1/text.txt";
-        String path = "text.txt";
-        //String path =  args[0];
+        System.out.println("--Testing HashMap class--");
+        //HashMapTest();
+        
+        System.out.println("--Main--");
+        String path;
+
+        if(args.length>0){
+            path =  args[0];
+        }
+        else{
+            path = "text.txt";
+        }
 
         try {
             HashMap<String, String> HM = FileToHashMap(path);
@@ -33,6 +36,12 @@ public class Main {
 
     }
 
+    /**
+     * Returns a hashMap with words as keys and it's positions as values.
+     * @param path a String with path to the file
+     * @return HashMap object
+     * @throws FileNotFoundException
+     */
     private static HashMap FileToHashMap(String path) throws FileNotFoundException{
 
 
@@ -69,64 +78,65 @@ public class Main {
         }
     }
 
+
+    /**
+     * Testing the methods of a hashMap object
+     */
     private static void HashMapTest(){
         // HashMap tests
 
         // constructor Test
-        HashMap<String,String> m = new HashMap<>(9, 0.75f);
+        HashMap<String,String> m = new HashMap<>(8, 0.75f);
 
         // put Test
-        m.put("adam","malysz");
-        m.put("adam","mickiewicz");
-        m.put("twoj","stary");
-        m.put("mikoolaj", "dupeczka");
-        m.put("gosia", "kasia");
-        m.put("reksio", "pies");
-        m.put("tomek", "lokomotywa");
-        m.put("pepe", "pig");
-        m.put("papaj", "czlowiek");
+        m.put("Leonardo","da Vinci");
+        m.put("Leonardo","DiCaprio");
+        m.put("Mariusz","Pudzianowski");
+        m.put("Javier", "Bardem");
+        m.put("Enrique", "Iglesias");
+        m.put("Penelope", "Cruz");
+        m.put("Adam", "Malysz");
+        m.put("Antonio", "Banderas");
+        m.put("Jon", "Doe");
 
         System.out.println(m.toString());
 
+        System.out.println("-Get test-");
         // getTest
-        //System.out.println(m.get("papaj"));
+        System.out.println(m.get("Leonardo"));
 
+        System.out.println("-Iterator test-");
         // iterator test
-//        for (String key: m) {
-//            if (key != null) {
-//                System.out.println("K:"+key +" V:"+ m.get(key));
-//            }
-//        }
+        for (String key: m) {
+            if (key != null) {
+                System.out.println("K:"+key +" V:"+ m.get(key));
+            }
+        }
 
         // removeTest
-        //System.out.println("\nremoved: " + m.remove("papaj"));
-        //System.out.println(m.toString());
+        System.out.println("-Remove test-");
+        System.out.println("\nremoved: " + m.remove("Javier"));
+        System.out.println(m.toString());
+
 
         // contains, size, isEmpty, clear Tests
+        System.out.println("-Other tests-");
         //System.out.println("\ncontains, size, isEmpty, clear Tests");
-        //System.out.println(m.contains("adam"));
-        //System.out.println(m.contains("mikoolaj"));
-        //System.out.println(m.contains(""));
-        //System.out.println(m.size());
-        //System.out.println(m.isEmpty());
-        //m.clear();
-        //System.out.println(m.size());
-        //System.out.println(m.isEmpty());
+        System.out.println(m.contains("Javier"));
+        System.out.println(m.contains("Jon"));
+        System.out.println(m.contains(""));
+        System.out.println(m.size());
+        System.out.println(m.isEmpty());
 
-
-        // Tests from pdf
-
-//        Map<Integer,String> m = new HashMap<>(); // create a dictionary
-//        m.put(2, "dos");
-//        m.put(3, "tres");
-//        m.put(5, "cinco");
-//
-//        System.out.println(m.get(2)); // prints "dos"
-//        System.out.println(m.get(3)); // prints "tres"
-//        System.out.println(m.get(5)); // prints "cinco"
-//        System.out.println(m); // prints "{2=dos, 3=tres, 5=cinco}"
+        m.clear();
+        System.out.println(m.size());
+        System.out.println(m.isEmpty());
     }
 
+
+    /**
+     * Testing the methods of a Array object
+     */
     private static void ArrayTest(){
         // Array tests
 

@@ -6,6 +6,11 @@ import java.lang.Math;
 
 //import java.util.Map;
 
+/**
+ * HashMap class to store key-value pairs, duplicated keys are not allowed
+ * @param <K> Generic key
+ * @param <V> Generic value
+ */
 public class HashMap<K,V> implements Map<K,V> {
 
     private int size = 0; // number of all elements currently stored in the HM
@@ -13,13 +18,19 @@ public class HashMap<K,V> implements Map<K,V> {
     private float loadFactor; //alpha
     private Array<Node> buckets;
 
-    // default constructor
+    /**
+     * Default constructor
+     */
     public HashMap()
     {
         this(16, 0.75f);
     }
 
-    // constructor with cap and lf
+    /**
+     * Overloaded constructor with capacity and loadFactor values
+     * @param capacity number of 'buckets' in the inner Array
+     * @param loadFactor alpha parameter, based on that the HashMap is automatically expanded
+     */
     public HashMap(int capacity, float loadFactor)
     {
         this.capacity = capacity;
@@ -29,6 +40,11 @@ public class HashMap<K,V> implements Map<K,V> {
 
     }
 
+    /**
+     * Method for putting a new key-value pair to the HashMap
+     * @param key generic key
+     * @param value generic value
+     */
     public void put(K key, V value){
 
         // check if we should expand the buckets
@@ -38,10 +54,25 @@ public class HashMap<K,V> implements Map<K,V> {
             System.out.println("new cap: " + capacity);
         }
 
+        // I created this method for to code to be more clear as the snippet is being used
+        // here and in expandCap() also
+        addPair(key, value, buckets);
+
+        size++;
+    }
+
+    /**
+     * Method for adding a Node to existing buckets Array
+     * the same code is being used in put() and expandCap() with different 'buckets' param
+     * @param key Generic key
+     * @param value Generic value
+     * @param buckets Array of buckets
+     */
+    private void addPair(K key, V value, Array buckets){
         Node newNode = new Node(key, value);
         int index = newNode.hash%buckets.capacity(); // can be optimized using hashCode & (buckets.length - 1)
 
-        Node bucket = buckets.get(index);
+        Node bucket = (Node) buckets.get(index);
 
         if(bucket==null){
             buckets.set(index, newNode);
@@ -61,9 +92,11 @@ public class HashMap<K,V> implements Map<K,V> {
             // add to the parent
             lastBucket.next = newNode;
         }
-        size++;
     }
 
+    /**
+     * Private method accessed by the set method when the capacity needs to be enlarged
+     */
     private void expandCap(){
 
         // calculate new_cap
@@ -71,22 +104,27 @@ public class HashMap<K,V> implements Map<K,V> {
         //int new_cap = capacity*2; //easier like this, and more efficient i think
         int new_cap = Math.max(size + 1 , capacity*2);
 
-        //create new buckets array with new_cap
-        //Array new_buckets = new Array(new_cap);
+        // create temp hashmap and copy the elements from the previous one, but with recalculated indexes
+        //HashMap NewHashMap = new HashMap(new_cap, loadFactor);
+        Array NewBuckets = new Array(new_cap); // new approach (!)
 
-        HashMap NewHashMap = new HashMap(new_cap, loadFactor);
-
-        // copy elements to the HM
         for(K key: this){
             if(key!=null){
-                NewHashMap.put(key, get(key));
+                //NewHashMap.put(key, get(key)); // very computer-time consuming, do it with Array only
+                addPair(key, get(key), NewBuckets); // new approach (!)
             }
         }
 
-        this.capacity = NewHashMap.capacity;
-        this.buckets = NewHashMap.buckets;
+        // overwrite parameters of 'this' HM
+        this.capacity = new_cap;
+        this.buckets = NewBuckets;
     }
 
+    /**
+     * Method for accessing a value from an element with specified key
+     * @param key Generic key
+     * @return Generic value or null in case the key is not in the HashMap
+     */
     public V get(K key){
 
         Node node = buckets.get( Math.abs( key.hashCode() )%buckets.capacity() ); // !
@@ -100,6 +138,11 @@ public class HashMap<K,V> implements Map<K,V> {
         return null;
     }
 
+    /**
+     * Method for removing the element at specified key
+     * @param key Generic key
+     * @return Value of the removed element or null in case it's not contained in the HashMap
+     */
     public V remove(K key){
 
         int idx = Math.abs( key.hashCode() )%buckets.capacity();
@@ -114,11 +157,11 @@ public class HashMap<K,V> implements Map<K,V> {
                 V removed_val = (V) node.value;
 
                 if( prev!=null && prev.hasNext() ){ // case when the node is not first
-                    System.out.println("del last or mid"); //ok
+                    //System.out.println("del last or mid"); //ok
                     prev.next = node.next;
                 }
                 else{ //if it's the first element of the bucket
-                    System.out.println("del first");
+                    //System.out.println("del first");
                     buckets.set(idx, node.next);
                 }
                 size--;
@@ -130,6 +173,11 @@ public class HashMap<K,V> implements Map<K,V> {
         return null;
     }
 
+    /**
+     * Method to check if element with specified key exists inside current HashMap
+     * @param key Generic key
+     * @return Boolean value
+     */
     public boolean contains(K key){
 
         //Node node = buckets.get( Math.abs( key.hashCode() )%buckets.capacity() );
@@ -143,15 +191,26 @@ public class HashMap<K,V> implements Map<K,V> {
 
     }
 
+    /**
+     * Method for accessing the current size of the HashMap (number of elements stored)
+     * @return int value
+     */
     public int size(){
-        // # of elements contained (size) or # of buckets (capacity)?
+        // # of elements contained (size)
         return size;
     }
 
+    /**
+     * Method for checking if HashMap is empty
+     * @return Boolean value
+     */
     public boolean isEmpty(){
         return (size==0);
     }
 
+    /**
+     * Method for removing every element from the HashMap and setting its default parameters to default
+     */
     public void clear(){
         //del everything?
 
@@ -159,9 +218,12 @@ public class HashMap<K,V> implements Map<K,V> {
         capacity = 16;
         buckets.clear();
         buckets = new Array(capacity);
-
     }
 
+    /**
+     * Method for accessing the content of the HashMap in a human-readable format
+     * @return String with information about the HashMap
+     */
     @Override
     public String toString() {
         return "HashMap{" +
@@ -172,16 +234,28 @@ public class HashMap<K,V> implements Map<K,V> {
                 '}';
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override public Iterator<K> iterator()
     {
         return new CIterator();
     }
 
+
+    /**
+     * Custom iterator for the HashMap class
+     */
     private class CIterator implements Iterator<K>
     {
         int indexPos = 0;
         Node lastNode = null;
 
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean hasNext() {
             if(capacity >= indexPos + 1  )
@@ -189,6 +263,10 @@ public class HashMap<K,V> implements Map<K,V> {
             return false;
         }
 
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public K next() {
             Node node;
@@ -211,7 +289,7 @@ public class HashMap<K,V> implements Map<K,V> {
         }
     }
 
-//    // ?? todo
+//    // ?? i don't think i need that snippet?
 //    @SuppressWarnings("unchecked")
 //    private static Node<K,V>[] new Array(int length)
 //    {
@@ -219,6 +297,13 @@ public class HashMap<K,V> implements Map<K,V> {
 //        return (Node<K,V>[]) new Node[length];
 //    }
 
+    /**
+     * Private Node class for operations on the HashMap,
+     * hash absolute value is automatically calculated,
+     * next is initialized as null
+     * @param <K> Generic key
+     * @param <V> Generic Value
+     */
     // Node private class
     private static class Node<K,V>
     {
@@ -243,14 +328,18 @@ public class HashMap<K,V> implements Map<K,V> {
             return getNext() != null;
         }
 
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
-            return "Node{" +
-                    "hash=" + hash +
-                    ", key=" + key +
+            return "Node[" +
+                    //"hash=" + hash +
+                    "key=" + key +
                     ", value=" + value +
                     ", next=" + next +
-                    '}';
+                    "]";
         }
     }
 
