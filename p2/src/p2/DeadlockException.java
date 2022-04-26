@@ -1,5 +1,8 @@
 package p2;
 
 public class DeadlockException extends Exception {
-    // todo
+
+    public DeadlockException(String errorMessage) {
+        super(errorMessage);
+    }
 }

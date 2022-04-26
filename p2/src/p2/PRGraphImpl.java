@@ -11,23 +11,33 @@ public class PRGraphImpl implements PRGraph{
 
     public void addProcess(String name) {
 
-        // put if does not already exists inside the hm
-        //hm.put(name, new Node)
+        if(!hm.containsKey(name)){
+            hm.put(name, new Process(name));
+        }
     }
 
     public void addResource(String name) {
-        // todo
+        if(!hm.containsKey(name)){
+            hm.put(name, new Resource(name));
+        }
     }
 
     public void open(String process, String resource) throws DeadlockException {
         // todo
+
+        // check for exception ...
+
+        hm.get(process).addRelation(resource, new Resource(resource));
     }
 
     public void close(String process, String resource) {
         // todo
+
+        // ??
+        hm.get(process).delRelation(resource);
     }
 
-    private class Node{
+    private abstract class Node{
 
         private String name;
         private HashMap <String, Node> links = new HashMap<>(); // could also be a list, but HM is faster
@@ -38,6 +48,10 @@ public class PRGraphImpl implements PRGraph{
 
         private void addRelation(String rel_name, Node rel_node) {
             links.put(rel_name, rel_node);
+        }
+
+        private void delRelation(String rel_name) {
+            links.remove(rel_name);
         }
 
         @Override
