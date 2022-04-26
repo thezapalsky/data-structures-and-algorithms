@@ -20,45 +20,14 @@ public class Reader {
         try{
             while( (CurrLine = in.readLine()) != null ){
                 System.out.println(CurrLine);
+
+                // todo
                 // add ifs there or sth
+                //PRGraphImpl graph_test = new PRGraphImpl();
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
-//    BufferedReader in = new BufferedReader( new FileReader(path) );
-//    String CurrLine = null;
-//    HashMap<String, String> HM = new HashMap<>();
-//
-//        try {
-//        int lineNumber=1;
-//        int colNumber=0;
-//        while ((CurrLine = in.readLine()) != null) {
-//            //System.out.println(CurrLine.split(" "));
-//
-//            for(String word: CurrLine.toLowerCase().split(" ")){
-//                colNumber++; //because of the space
-//
-//                //System.out.println(word.replaceAll("[.,]", "") ); //should we care about these?
-//                //System.out.println(word + " (" + lineNumber + ", " + colNumber + ")" );
-//
-//                String pos =  "(" + lineNumber + ":" + colNumber + ")";
-//                HM.put(word, pos);
-//
-//                colNumber+=word.length();
-//            }
-//            colNumber=0;
-//            lineNumber++;
-//        }
-//
-//        return HM;
-//    }
-//        catch (IOException e) {
-//        e.printStackTrace();
-//        return null;
-//    }
 }
