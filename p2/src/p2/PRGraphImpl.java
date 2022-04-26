@@ -32,6 +32,8 @@ public class PRGraphImpl implements PRGraph{
         // todo
         // ?? idk if it works correctly
         hm.get(process).delRelation(resource);
+
+        //Note that when a resource is released (close), if there is a process waiting for that resource, it must be assigned to it.
     }
 
     @Override
@@ -65,6 +67,8 @@ public class PRGraphImpl implements PRGraph{
 
         @Override
         public String toString() {
+            //return name + "->"+links;
+
             return "Node{" +
                     "name='" + name + '\'' +
                     ", links=" + links +
