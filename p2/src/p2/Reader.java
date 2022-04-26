@@ -17,7 +17,15 @@ public class Reader {
         BufferedReader in = new BufferedReader( new FileReader(path) );
         String CurrLine = null;
 
-        // bla bla ...
+        try{
+            while( (CurrLine = in.readLine()) != null ){
+                System.out.println(CurrLine);
+                // add ifs there or sth
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
