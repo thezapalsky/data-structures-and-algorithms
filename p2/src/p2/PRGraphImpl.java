@@ -23,16 +23,14 @@ public class PRGraphImpl implements PRGraph{
 
     public void open(String process, String resource) throws DeadlockException {
         // todo
-
         // check for exception ...
 
-        hm.get(process).addRelation(resource, new Resource(resource));
+        hm.get(process).addRelation(resource, hm.get(resource)); // what if we add not existent?
     }
 
     public void close(String process, String resource) {
         // todo
-
-        // ??
+        // ?? idk if it works correctly
         hm.get(process).delRelation(resource);
     }
 
