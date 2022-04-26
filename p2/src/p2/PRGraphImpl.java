@@ -10,7 +10,6 @@ public class PRGraphImpl implements PRGraph{
     // use "put" every time we crate a node
 
     public void addProcess(String name) {
-
         if(!hm.containsKey(name)){
             hm.put(name, new Process(name));
         }
@@ -37,10 +36,10 @@ public class PRGraphImpl implements PRGraph{
         hm.get(process).delRelation(resource);
     }
 
-    private abstract class Node{
+    private abstract static class Node{
 
-        private String name;
-        private HashMap <String, Node> links = new HashMap<>(); // could also be a list, but HM is faster
+        private final String name;
+        private final HashMap <String, Node> links = new HashMap<>(); // could also be a list, but HM is faster
 
         public Node(String name) {
             this.name = name;
@@ -63,14 +62,14 @@ public class PRGraphImpl implements PRGraph{
         }
     }
 
-    private class Process extends Node{
+    private static class Process extends Node{
 
         public Process(String name) {
             super(name);
         }
     }
 
-    private class Resource extends Node{
+    private static class Resource extends Node{
 
         public Resource(String name) {
             super(name);
