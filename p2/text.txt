@@ -23,6 +23,5 @@ PROCESS P6
 OPEN P6 R6
 OPEN P3 R5
 OPEN P5 R7
-
 # CLOSE P3 R4 # Will avoid deadlock 
-OPEN P4 R4 # Creates deadlock
+# OPEN P4 R4 # Creates deadlock

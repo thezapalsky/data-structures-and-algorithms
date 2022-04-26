@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class PRGraphImpl implements PRGraph{
 
-    HashMap<String, Node> hm;
+    HashMap<String, Node> hm = new HashMap<>();
     // hashmap with nodes (all in current problem)
     // key -> name, value -> node
     // use "put" every time we crate a node
@@ -34,6 +34,18 @@ public class PRGraphImpl implements PRGraph{
 
         // ??
         hm.get(process).delRelation(resource);
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+
+        for (Node node : hm.values()) {
+            str.append( node.toString()+"\n");
+        }
+
+        return str.toString();
     }
 
     private abstract static class Node{
