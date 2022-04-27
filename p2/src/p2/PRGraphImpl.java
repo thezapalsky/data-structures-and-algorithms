@@ -22,18 +22,23 @@ public class PRGraphImpl implements PRGraph{
     }
 
     public void open(String process, String resource) throws DeadlockException {
-        // todo
-        // check for exception ...
 
+        // check for cycle
+        for (Node node: hm.values()) {
+            for (Node link :node.links.values()) {
+                if(node.name.equals(link.name)){
+                    throw new DeadlockException();
+                }
+            }
+        }
         hm.get(process).addRelation(resource, hm.get(resource)); // what if we add not existent?
     }
 
     public void close(String process, String resource) {
-        // todo
-        // ?? idk if it works correctly
         hm.get(process).delRelation(resource);
 
-        //Note that when a resource is released (close), if there is a process waiting for that resource, it must be assigned to it.
+        // ??
+        // Note that when a resource is released (close), if there is a process waiting for that resource, it must be assigned to it.
     }
 
     @Override
