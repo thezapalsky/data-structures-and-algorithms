@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
 
-        String pth =  "/Users/mikolaj/Desktop/DS/data-structures-and-algorithms/p2/text.txt";
+        String pth =  "text.txt";
         Reader rdr = new Reader(pth);
         rdr.readFile();
     }
