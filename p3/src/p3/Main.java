@@ -8,7 +8,9 @@ public class Main {
 
         String pth =  "input.txt";
         Reader rdr = new Reader(pth);
-        rdr.readFile();
+        rdr.readFile(); // return Graph
+
+        // and then paint it? // todo
 
     }
 }

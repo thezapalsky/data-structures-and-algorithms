@@ -7,7 +7,7 @@ public class MinHeap <E extends Comparable<E>>{
     @SuppressWarnings("unchecked")
     public MinHeap(int capacity)
     {
-        array = (E[])new Comparable[capacity];
+        array = (E[]) new Comparable[capacity];
     }
 
     //todo

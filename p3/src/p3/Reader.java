@@ -16,34 +16,17 @@ public class Reader {
 
     public void readFile() throws FileNotFoundException {
         BufferedReader in = new BufferedReader( new FileReader(path) );
-
-        //Graph graph_test = new Graph();
         String CurrLine = null;
+
+        // create graph here //todo
 
         try{
             while( (CurrLine = in.readLine()) != null ){
-                //System.out.println(CurrLine);
 
-                for (String s : CurrLine.split(" ")) {
-                    System.out.println(s);
-                }
-
-                //System.out.println(first);
-
-//                if(Objects.equals(first, "OPEN")){
-//                    //graph_test.open(CurrLine.split(" ")[1], CurrLine.split(" ")[2]);
-//                }
-//                else if(Objects.equals(first, "CLOSE")){
-//                    graph_test.close(CurrLine.split(" ")[1], CurrLine.split(" ")[2]);
-//                }
-//                else if(Objects.equals(first, "PROCESS")){
-//                    graph_test.addProcess(CurrLine.split(" ")[1]);
-//                }
-//                else if(Objects.equals(first, "RESOURCE")){
-//                    graph_test.addResource(CurrLine.split(" ")[1]);
-//                }
+                String[] strs = CurrLine.split(" ");
+                // create 'relation here' with
+                // strs[0], strs[1], ... //todo
             }
-            //System.out.println(graph_test);
         }
         catch (IOException e) {
             e.printStackTrace();
