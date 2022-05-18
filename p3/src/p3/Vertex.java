@@ -8,5 +8,11 @@ public class Vertex {
         this.y = y;
     }
 
-    //todo ..
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
