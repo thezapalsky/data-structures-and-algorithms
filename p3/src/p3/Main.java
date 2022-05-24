@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String pth =  "input.txt";
-        //String pth =  "input2.txt";
+        //String pth =  "input.txt";
+        String pth =  "input2.txt";
         Reader rdr = new Reader(pth);
         Graph g = rdr.readFile();
         //System.out.println(g);
@@ -23,12 +23,11 @@ public class Main {
 
         //canvas stuff
         //Canvas.paint(g);
-        //Canvas.paint(g,t);
+        Canvas.paint(g,t);
 
     }
 
     static Graph MSTKruskal(Graph g){
-        // ?? //todo
         // for every edge create an one element graph
         // not graph, cause it does not implement unions?
         // start to union the graphs
@@ -37,6 +36,7 @@ public class Main {
 
         HashMap<Integer,Set> forest = new HashMap<>();
         for (Vertex v : g.vertices()){
+            //System.out.println(v);
             Set tree = new HashSet();
             tree.add(v);
             forest.put(tree.hashCode(),tree);
@@ -56,7 +56,7 @@ public class Main {
 
             //The edge with the minimum weight edge is eliminated from the set
             Edge curr = edges.poll();
-            System.out.print(curr);
+            //System.out.print(curr);
             Vertex u = curr.getU();
             Vertex v = curr.getV();
 
@@ -67,9 +67,10 @@ public class Main {
 
             if(set_u!=set_v){
                 //System.out.println("Union");
+                t.add(u.x, u.y, v.x, v.y, curr.getW());
                 Union(set_u,set_v);
             }
-            System.out.println("u:"+set_u);
+            //System.out.println("u:"+set_u);
             //System.out.println("v:"+set_v);
         }
 
@@ -94,6 +95,8 @@ public class Main {
     static void Union(Set set1, Set set2){
         set1.addAll(set2);
         set2.clear();
+        //del tree
+
         //return set1;
     }
 }
