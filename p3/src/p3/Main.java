@@ -35,11 +35,11 @@ public class Main {
 
         Graph t = new Graph();
 
-        HashMap<String,Set> forest = new HashMap<>();
+        HashMap<Integer,Set> forest = new HashMap<>();
         for (Vertex v : g.vertices()){
             Set tree = new HashSet();
             tree.add(v);
-            forest.put(v.toString(),tree);
+            forest.put(tree.hashCode(),tree);
         }
 
         // instead of implementing minHeap class from scratch I'm using PQ from Java's API
@@ -63,39 +63,15 @@ public class Main {
             //If the chosen edge connects two different trees it is added to the forest,
             //combining the two trees into one.
 
-            // 1.
+            // i should impelement the find method -_-
             for (Set tree : forest.values()) {
-                if (tree.contains(u) ) {
-
-                    //System.out.println("dodaje");
+                if (tree.contains(u)) {
                     tree.add(v);
                 }
             }
+            forest.remove(v.hashCode());
         }
-
-//            if(forest.get(u.toString())!=forest.get(v.toString())){
-//                //System.out.print("dupa");
-//                for (Set tree:forest.values()){
-//                    if(tree.contains(u)){
-//                        tree.add(v); // union /AAAAA //todo
-//                        System.out.println("dodaje");
-//                        forest.remove(v.toString()); // remove 1-element v set
-//                        t.add(u.x,u.y, v.x, v.y, curr.getW());
-//                    }
-//                }
-//            }
-//        }
-//        System.out.println("\n"+forest);
-
-            // nwm :(
-//            for (Set tree:forest.values()) {
-//                if(tree.contains(u) && !tree.contains(v)){
-//                    tree.add(v);
-//                    forest.remove(v.toString());
-//                    // add to the t?
-//                    t.add(u.x,u.y, v.x, v.y, curr.getW());
-//                }
-//            }
-        return t;//
+        System.out.println("\n"+forest);
+        return t;
     }
 }
