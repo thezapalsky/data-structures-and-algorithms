@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        //String pth =  "input.txt";
-        String pth =  "input2.txt";
+        String pth =  "input.txt";
+        //String pth =  "input2.txt";
         Reader rdr = new Reader(pth);
         Graph g = rdr.readFile();
         //System.out.println(g);
@@ -29,7 +29,7 @@ public class Main {
 
     static Graph MSTKruskal(Graph g){
         // ?? //todo
-        // for every edge create a one element graph
+        // for every edge create an one element graph
         // not graph, cause it does not implement unions?
         // start to union the graphs
 
@@ -62,16 +62,38 @@ public class Main {
 
             //If the chosen edge connects two different trees it is added to the forest,
             //combining the two trees into one.
+            Set set_u = Find(forest, u);
+            Set set_v = Find(forest, v);
 
-            // i should impelement the find method -_-
-            for (Set tree : forest.values()) {
-                if (tree.contains(u)) {
-                    tree.add(v);
+            if(set_u!=set_v){
+                //System.out.println("Union");
+                Union(set_u,set_v);
+            }
+            System.out.println("u:"+set_u);
+            //System.out.println("v:"+set_v);
+        }
+
+        //there should be only one tree in the forest left
+        System.out.println("\n"+forest);
+
+        // add MST to the t
+        return t;
+    }
+
+    //returns a tree (set) if it's containing vertex V
+    static Set Find(HashMap<Integer, Set> forest, Vertex V){
+        for (Set tree : forest.values() ) {
+                if (tree.contains(V)) {
+                    return tree;
                 }
             }
-            forest.remove(v.hashCode());
-        }
-        System.out.println("\n"+forest);
-        return t;
+        return null;
+    }
+
+    //returns union of two sets, removes the second set (?)
+    static void Union(Set set1, Set set2){
+        set1.addAll(set2);
+        set2.clear();
+        //return set1;
     }
 }
