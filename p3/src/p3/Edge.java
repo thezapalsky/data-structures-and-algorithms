@@ -29,10 +29,11 @@ public class Edge implements Comparable<Edge>{
 
     @Override
     public String toString() {
-        return "Edge{" +
-                "origin=" + origin +
-                ", destination=" + destination +
-                ", weight=" + weight +
+        return "{"+//Edge{" +
+                //"origin=" + origin +
+                //", destination=" + destination +
+                //", weight=" + weight +
+                weight+
                 '}';
     }
 
@@ -40,8 +41,11 @@ public class Edge implements Comparable<Edge>{
     // to allow to add the edges to the MinHeap and get them from lowest to highest weight.
     @Override
     public int compareTo(Edge o) {
-        //todo!
-        return 0;
+
+        if(this.getW() == o.getW()) return 0;
+        else if(this.getW() < o.getW()) return -1;
+        else return 1;
+        //return 0;
     }
 
 }

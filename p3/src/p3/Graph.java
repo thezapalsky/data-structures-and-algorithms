@@ -40,9 +40,10 @@ public class Graph {
 
     @Override
     public String toString() {
-        return "Graph{" +
-                "vs=" + vs +
-                ", es=" + es +
+        return "{"+//"Graph{" +
+                //"vs=" + vs +
+                //", es=" + es +
+                es+
                 '}';
     }
 }
