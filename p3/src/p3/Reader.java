@@ -14,23 +14,26 @@ public class Reader {
         this.path = path;
     }
 
-    public void readFile() throws FileNotFoundException {
+    public Graph readFile() throws FileNotFoundException {
         BufferedReader in = new BufferedReader( new FileReader(path) );
         String CurrLine = null;
 
-        // create graph here //todo
+        Graph g = new Graph();
 
         try{
             while( (CurrLine = in.readLine()) != null ){
 
                 String[] strs = CurrLine.split(" ");
-                // create 'relation here' with
-                // strs[0], strs[1], ... //todo
+                g.add(Integer.parseInt(strs[0]),
+                        Integer.parseInt(strs[1]),
+                        Integer.parseInt(strs[2]),
+                        Integer.parseInt(strs[3]),
+                        Integer.parseInt(strs[4]));
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        return g;
     }
-
 }
